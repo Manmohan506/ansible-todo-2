@@ -6,6 +6,7 @@
     - role: frontend
       tags: frontend
       when: COMPONENT == "frontend"
+      
     - role: login
       tags: login
       when: COMPONENT == "login"   
