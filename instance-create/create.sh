@@ -1,6 +1,7 @@
 #!/bin/bash
 
-LID=lt-08ca064f8fd69b51c
+
+LID=lt-0229c5707ccb402bc
 LVER=1
 #COMPONENT=$1
 
@@ -23,15 +24,14 @@ Instance_Create() {
   IPADDRESS=$(aws ec2 describe-instances     --filters Name=tag:Name,Values=${COMPONENT}   | jq .Reservations[].Instances[].PrivateIpAddress | grep -v null |xargs)
 
   sed -e "s/COMPONENT/${COMPONENT}/" -e "s/IPADDRESS/${IPADDRESS}/" record.json >/tmp/record.json
-  aws route53 change-resource-record-sets --hosted-zone-id  Z07164661TRQAXR49JKEX --change-batch file:///tmp/record.json
-  sed -i -e "/${COMPONENT}/ d" ../inv
-  echo "${IPADDRESS} COMPONENT=$(echo ${COMPONENT} | awk -F - '{print $1}')" >>../inv
+  aws route53 change-resource-record-sets --hosted-zone-id Z066906510XQQWBJS98KD --change-batch file:///tmp/record.json
 }
 
-if [ "$1" == "all" ]; then
-  for instance in frontend login todo redis users ; do
-    Instance_Create $instance-dev
+if [ "$1" == "all" ]; then 
+  for instance in frontend redis users login todo ; do
+    Instance_Create $instance
   done
 else
-  Instance_Create $1-dev
+  Instance_Create $1
+
 fi
