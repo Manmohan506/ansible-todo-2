@@ -27,11 +27,10 @@ Instance_Create() {
   aws route53 change-resource-record-sets --hosted-zone-id Z066906510XQQWBJS98KD --change-batch file:///tmp/record.json
 }
 
-if [ "$1" == "all" ]; then 
-  for instance in frontend redis users login todo ; do
-    Instance_Create $instance
+if [ "$1" == "all" ]; then
+  for instance in frontend login todo redis users ; do
+    Instance_Create $instance-dev
   done
 else
-  Instance_Create $1
-
+  Instance_Create $1-dev
 fi
