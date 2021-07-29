@@ -1,12 +1,12 @@
 [Unit]
 Description = todo Service
-[Service]
 
-Environment=ZIPKIN_URL=
-Environment=REDIS_HOST=http://redis.zsdevops01.store:8080
+[Service]
+Environment=REDIS_HOST=http://redis-{{ENV}}.zsdevops01.store:8080
 Environment=TODOS_API_PORT=8080
-ExecStart=/bin/node /root/server.js
-SyslogIdentifier=login
+ExecStart=/bin/node /home/ubuntu/todo/server.js
+Restart=on-failure
+SyslogIdentifier=todo
 
 [Install]
 WantedBy=multi-user.target
