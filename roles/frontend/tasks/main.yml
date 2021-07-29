@@ -18,8 +18,7 @@
   loop:
     - /etc/nginx/sites-enabled/default
     - /etc/nginx/sites-available/default
-    - /var/www/html/frontend
-    
+
 - name: Create HtDocs Directory
   file:
     path: /var/www/html/frontend
@@ -38,11 +37,11 @@
   
 - name: Start Nginx
   systemd:
-    state: restarted
+    state: started
     name: nginx
     enabled: yes
 
 - name: Install Node Exporter Prometheus Monitoring
   include_role:
     name: common
-    tasks_from: node_exporter
+   # tasks_from: node_exporter
