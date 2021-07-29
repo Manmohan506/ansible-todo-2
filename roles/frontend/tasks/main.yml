@@ -37,7 +37,7 @@
   
 - name: Start Nginx
   systemd:
-    state: restarted
+    state: started
     name: nginx
     enabled: yes
 
@@ -45,4 +45,3 @@
   include_role:
     name: common
     tasks_from: node_exporter
-        
