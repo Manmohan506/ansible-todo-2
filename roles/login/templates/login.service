@@ -1,10 +1,12 @@
 [Unit]
-Description=login service
+
+Description = login Service
 [Service]
-Type=simple
-Environment=USERS_API_ADDRESS=http://users-dev.zsdevops01.store:80
-Environment=AUTH_API_PORT=80
+Environment=AUTH_API_PORT=8080
+Environment=USERS_API_ADDRESS=http://users-{{ENV}}.zsdevops01.store:8080
 ExecStart=/home/ubuntu/login/login-ci
-Restart=on-failure
+SyslogIdentifier=login
+ 
+
 [Install]
 WantedBy=multi-user.target
