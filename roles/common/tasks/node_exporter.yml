@@ -1,4 +1,6 @@
 - name: Validate exisiting Installation
+  become: true
+  become_user: root
   stat:
     path: /opt/node_exporter
   register: dir_check
@@ -7,7 +9,9 @@
   when: not dir_check.stat.exists
   block:
     - name: Find the URL of Node_Exporter Latest Version URL
-      shell: curl -L -s https://prometheus.io/download/  | grep tar | grep node_exporter | grep linux-amd64  | sed -e "s|>| |g" -e 's|<| |g' -e 's|"| |g' |xargs -n1 | grep ^http
+      shell: curl  -L -s https://prometheus.io/download/  | grep tar | grep node_exporter | grep linux-amd64  | sed -e "s|>| |g" -e 's|<| |g' -e 's|"| |g' |xargs -n1 | grep ^http
+      args:
+        warn: false # set warn=false to prevent warning
       register: node_exporter_url
 
     - name: Grab filename and Directory Name from the URL
