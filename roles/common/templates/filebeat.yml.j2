@@ -24,7 +24,7 @@ output.logstash:
 {% if IS_STRUCTURED %}
 setup.template.name: "{{COMPONENT}}"
 setup.template.pattern: "{{COMPONENT}}-*"
-setup.ilm.enabled: false
+setup.template.enabled: false
 {% endif %}
 
  These always are defaults
@@ -34,4 +34,5 @@ filebeat.config.modules:
 
 setup.template.settings:
   index.number_of_shards: 1
+  
 ##json.keys_under_root:true , Need to enabled 
